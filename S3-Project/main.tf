@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "public-access" {
  
     principals {
       type = "AWS"
-      identifiers = [408935668637]
+      identifiers = ["*"]
     }
     actions = ["s3:GetObject","s3:ListBucket"]
     resources = [
@@ -40,4 +40,12 @@ data "aws_iam_policy_document" "public-access" {
 
   }
 
+}
+resource "aws_s3_bucket_public_access_block" "public-access-block" {
+  bucket = aws_s3_bucket.onmodul-dev.id
+
+  block_public_acls = false
+  block_public_policy = false
+  ignore_public_acls = false
+  restrict_public_buckets = false
 }
